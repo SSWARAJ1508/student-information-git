@@ -230,6 +230,62 @@
           </div>
         </section>
 
+        <!-- ======== Student Information System (Core Profile) ======== -->
+        <section class="student-info-section reveal" aria-label="Student Profile Record" id="studentProfileCard">
+          <div class="student-card-container">
+            <div class="student-info-card">
+              <div class="student-card-top">
+                <div class="student-avatar" aria-hidden="true">
+                  <span>CY</span>
+                </div>
+                <div class="student-header-info">
+                  <span class="badge-role">MCA Candidate</span>
+                  <h1>Student Information System</h1>
+                  <p class="student-app-subheading">Individual Student Profile Record</p>
+                </div>
+              </div>
+
+              <div class="student-details-grid">
+                <div class="detail-item">
+                  <span class="detail-label">Name</span>
+                  <span class="detail-value" id="studentName">Cynthia</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Register Number</span>
+                  <span class="detail-value" id="studentRegNo">101</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Programme</span>
+                  <span class="detail-value" id="studentProgramme">MCA</span>
+                </div>
+              </div>
+
+              <!-- Collapsible Extended Details (For Student 3 JS Functionality) -->
+              <div class="student-extended-details" id="studentDetails" style="display: none;">
+                <div class="detail-item">
+                  <span class="detail-label">Academic Year</span>
+                  <span class="detail-value">2026–2027</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Semester</span>
+                  <span class="detail-value">Semester II</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Status</span>
+                  <span class="detail-badge-active">Enrolled</span>
+                </div>
+              </div>
+
+              <div class="student-card-footer">
+                <button class="btn btn-primary" id="btnShowDetails">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                  Show Details
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- ---- KPI Cards ---- -->
         <section class="kpi-section reveal" aria-label="Key metrics">
           <div class="grid-cols-4" id="kpiGrid">
