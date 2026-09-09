@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Information & Analytics Portal</title>
+  <meta name="description" content="Enterprise-grade Student Information & Analytics Dashboard for academic institution management." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ======== Loading Screen ======== -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-spinner"></div>
+    <p>Loading Dashboard&hellip;</p>
+  </div>
+
+  <!-- ======== Toast Container ======== -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ======== Mobile Sidebar Overlay ======== -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ======== App Shell ======== -->
+  <div class="app" id="app">
+
+    <!-- ======== Sidebar ======== -->
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+
+      <!-- Toggle -->
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+
+      <!-- Header / Logo -->
+      <div class="sidebar-header">
+        <div class="sidebar-logo" aria-hidden="true">FS</div>
+        <div class="sidebar-brand">
+          <h2>FIELDSTATE</h2>
+          <span>Academic Portal &bull; '25</span>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="sidebar-nav" aria-label="Primary">
+        <div class="nav-section-title">Main Menu</div>
+
+        <button class="nav-item active" data-section="dashboard" aria-current="page">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          </span>
+          <span class="nav-label">Dashboard</span>
+        </button>
+
+        <button class="nav-item" data-section="students">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </span>
+          <span class="nav-label">Students</span>
+          <span class="nav-badge">128</span>
+        </button>
+
+        <button class="nav-item" data-section="attendance">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </span>
+          <span class="nav-label">Attendance</span>
+        </button>
+
+        <button class="nav-item" data-section="performance">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </span>
+          <span class="nav-label">Performance</span>
+        </button>
+
+        <div class="nav-section-title">Management</div>
+
+        <button class="nav-item" data-section="departments">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </span>
+          <span class="nav-label">Departments</span>
+        </button>
+
+        <button class="nav-item" data-section="reports">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </span>
+          <span class="nav-label">Reports</span>
+        </button>
+
+        <button class="nav-item" data-section="settings">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          </span>
+          <span class="nav-label">Settings</span>
+        </button>
+      </nav>
+
+      <!-- Footer / User -->
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="sidebar-avatar" aria-hidden="true">N</div>
+          <div class="sidebar-user-info">
+            <div class="name">Nethu</div>
+            <div class="role">Administrator</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ======== Main Content ======== -->
+    <div class="main-content">
+
+      <!-- ======== Top Navigation ======== -->
+      <header class="topnav" role="banner">
+        <div class="topnav-left">
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <div class="topnav-search">
+            <span class="search-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </span>
+            <input type="text" id="globalSearch" placeholder="Search students, departments…" aria-label="Search" />
+          </div>
+        </div>
+
+        <div class="topnav-right">
+          <div class="topnav-status">
+            <span class="status-dot"></span>
+            System Operational
+          </div>
+
+          <span class="topnav-date" id="currentDate"></span>
+
+          <!-- Theme toggle -->
+          <button class="topnav-btn theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">
+            <svg id="themeIconLight" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <svg id="themeIconDark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          </button>
+
+          <!-- Help -->
+          <button class="topnav-btn" aria-label="Help" title="Help">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </button>
+
+          <!-- Notifications -->
+          <div class="dropdown" id="notifDropdown">
+            <button class="topnav-btn" id="notifBtn" aria-label="Notifications" title="Notifications">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+              <span class="badge-dot"></span>
+            </button>
+            <div class="dropdown-menu" id="notifMenu">
+              <div class="dropdown-header">Notifications</div>
+              <div class="notification-item">
+                <div class="notif-title">Attendance Alert</div>
+                <div class="notif-desc">124 students below 75% attendance threshold</div>
+                <div class="notif-time">2 minutes ago</div>
+              </div>
+              <div class="notification-item">
+                <div class="notif-title">Report Generated</div>
+                <div class="notif-desc">November 2026 monthly report is ready</div>
+                <div class="notif-time">15 minutes ago</div>
+              </div>
+              <div class="notification-item">
+                <div class="notif-title">New Enrollment</div>
+                <div class="notif-desc">32 new students enrolled this week</div>
+                <div class="notif-time">1 hour ago</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Profile -->
+          <div class="dropdown" id="profileDropdown">
+            <button class="topnav-avatar" id="profileBtn" aria-label="Profile menu">N</button>
+            <div class="dropdown-menu" id="profileMenu">
+              <div class="dropdown-header">Nethu</div>
+              <button class="dropdown-item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                My Profile
+              </button>
+              <button class="dropdown-item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4"/></svg>
+                Settings
+              </button>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item" style="color:var(--danger);">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                Sign Out
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ======== Page Content ======== -->
+      <main class="page-content" role="main">
+
+        <!-- ---- Welcome Section (FIELDSTATE Campaign Banner) ---- -->
+        <section class="welcome-section reveal" aria-label="Welcome">
+          <div class="welcome-content">
+            <div class="editorial-eyebrow">FIELDSTATE ACADEMIC &bull; FALL &lsquo;25 REPERTORY</div>
+            <div class="welcome-top">
+              <div class="welcome-text">
+                <div class="hero-campaign-title">FALL &lsquo;25</div>
+                <h1 id="welcomeGreeting">Good Morning, Nethu</h1>
+                <p class="editorial-tagline">Refined for now. <em>*Rooted in form</em></p>
+                <p class="editorial-desc">Tailored calm, dressed for institutional excellence. An editorial perspective on student cohorts, attendance dynamics, and departmental analytics.</p>
+                <div class="welcome-meta">
+                  <span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    <span id="welcomeDate"></span>
+                  </span>
+                  <span class="meta-tag">[ ACADEMIC YEAR 2026&ndash;27 ]</span>
+                  <span class="meta-tag">[ LIVE REPERTORY ]</span>
+                </div>
+              </div>
+            </div>
+            <div class="welcome-actions">
+              <button class="btn btn-primary" id="btnGenerateReport">Generate Report</button>
+              <button class="btn btn-secondary" id="btnViewStudents">View Students</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ======== Student Information System (Core Profile) ======== -->
+        <section class="student-info-section reveal" aria-label="Student Profile Record" id="studentProfileCard">
+          <div class="student-card-container">
+            <div class="student-info-card">
+              <div class="student-card-top">
+                <div class="student-avatar" aria-hidden="true">
+                  <span>CY</span>
+                </div>
+                <div class="student-header-info">
+                  <div class="student-status-row">
+                    <span class="badge-role">MCA Candidate &bull; Enrolled</span>
+                    <span class="badge-status-dot">● Active &amp; Good Standing</span>
+                  </div>
+                  <h1>Individual Student Profile</h1>
+                  <p class="student-app-subheading">Refined Academic Record &bull; Cohort 2026&ndash;27 &bull; Department of Computer Applications</p>
+                </div>
+              </div>
+
+              <div class="student-details-grid">
+                <div class="detail-item">
+                  <span class="detail-label">Name</span>
+                  <span class="detail-value" id="studentName">Cynthia</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Register Number</span>
+                  <span class="detail-value" id="studentRegNo">101</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Programme</span>
+                  <span class="detail-value" id="studentProgramme">MCA</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Academic Cohort</span>
+                  <span class="detail-value" id="studentCohort">2026–2027 &bull; Year II</span>
+                </div>
+                <div class="detail-item detail-item-email">
+                  <div class="detail-item-header">
+                    <span class="detail-label">Email Address</span>
+                    <button class="btn-copy-email" id="btnCopyEmail" title="Copy email address" aria-label="Copy email">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="0" ry="0"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                    </button>
+                  </div>
+                  <a href="mailto:cynthia.mca@university.edu" class="detail-value detail-value-email" id="studentEmail">cynthia.mca@university.edu</a>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Contact Phone</span>
+                  <a href="tel:+919876543210" class="detail-value detail-value-phone" id="studentPhone">+91 98765 43210</a>
+                </div>
+              </div>
+
+              <!-- Collapsible Extended Details (For Student 3 JS Functionality) -->
+              <div class="student-extended-details" id="studentDetails" style="display: none;">
+                <div class="detail-item">
+                  <span class="detail-label">Academic Term</span>
+                  <span class="detail-value">Semester II &bull; Full-Time</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Cumulative GPA</span>
+                  <span class="detail-value">9.42 / 10.0 (Distinction)</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Faculty Mentor</span>
+                  <span class="detail-value">Dr. K. Ramanathan, Senior Fellow</span>
+                </div>
+              </div>
+
+              <div class="student-card-footer">
+                <button class="btn" id="btnShowDetails">Show Details</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---- KPI Cards ---- -->
+        <section class="kpi-section reveal" aria-label="Key metrics">
+          <div class="grid-cols-3" id="kpiGrid">
+            <!-- KPI 1 -->
+            <div class="kpi-card">
+              <div class="kpi-card-header">
+                <div class="kpi-icon blue">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+                </div>
+                <span class="kpi-change positive">&uarr; 8.2%</span>
+              </div>
+              <div class="kpi-value" data-target="12846">0</div>
+              <div class="kpi-label">Total Students</div>
+              <div class="kpi-sublabel">vs last academic year</div>
+            </div>
+            <!-- KPI 2 -->
+            <div class="kpi-card">
+              <div class="kpi-card-header">
+                <div class="kpi-icon green">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </div>
+                <span class="kpi-change positive">&uarr; 5.4%</span>
+              </div>
+              <div class="kpi-value" data-target="11972">0</div>
+              <div class="kpi-label">Active Students</div>
+              <div class="kpi-sublabel">currently enrolled</div>
+            </div>
+            <!-- KPI 3 -->
+            <div class="kpi-card">
+              <div class="kpi-card-header">
+                <div class="kpi-icon purple">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </div>
+                <span class="kpi-change positive">&uarr; 2.1%</span>
+              </div>
+              <div class="kpi-value" data-target="87.6" data-suffix="%" data-decimal="true">0</div>
+              <div class="kpi-label">Average Attendance</div>
+              <div class="kpi-sublabel">across all departments</div>
+            </div>
+            <!-- KPI 4 -->
+            <div class="kpi-card">
+              <div class="kpi-card-header">
+                <div class="kpi-icon amber">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                </div>
+                <span class="kpi-change positive">&uarr; 4.8%</span>
+              </div>
+              <div class="kpi-value" data-target="82.4" data-suffix="%" data-decimal="true">0</div>
+              <div class="kpi-label">Average Performance</div>
+              <div class="kpi-sublabel">grade point average</div>
+            </div>
+            <!-- KPI 5 -->
+            <div class="kpi-card">
+              <div class="kpi-card-header">
+                <div class="kpi-icon indigo">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </div>
+                <span class="kpi-change positive">&uarr; 2</span>
+              </div>
+              <div class="kpi-value" data-target="18">0</div>
+              <div class="kpi-label">Departments</div>
+              <div class="kpi-sublabel">active academic units</div>
+            </div>
+            <!-- KPI 6 -->
+            <div class="kpi-card">
+              <div class="kpi-card-header">
+                <div class="kpi-icon rose">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <span class="kpi-change positive">&uarr; 3.6%</span>
+              </div>
+              <div class="kpi-value" data-target="624">0</div>
+              <div class="kpi-label">Faculty Members</div>
+              <div class="kpi-sublabel">across all departments</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---- Student Analytics Chart ---- -->
+        <section class="section-card reveal" aria-label="Enrollment chart">
+          <div class="section-header">
+            <div>
+              <div class="section-title">Student Enrollment Overview</div>
+              <div class="section-subtitle">Enrollment trends across the academic year</div>
+            </div>
+            <div class="section-actions">
+              <button class="btn btn-outline btn-sm" data-chart-period="monthly">Monthly</button>
+            </div>
+          </div>
+          <div class="chart-container" id="enrollmentChart">
+            <div class="chart-tooltip" id="chartTooltip"></div>
+            <!-- Chart rendered via JS -->
+          </div>
+        </section>
+
+        <!-- ---- Department Performance ---- -->
+        <section class="reveal" aria-label="Department performance">
+          <div class="section-header" style="margin-bottom:20px;">
+            <div>
+              <div class="section-title">Department Performance</div>
+              <div class="section-subtitle">Attendance &amp; academic performance by department</div>
+            </div>
+          </div>
+          <div class="grid-cols-3" id="deptGrid">
+            <!-- Rendered via JS -->
+          </div>
+        </section>
+
+        <!-- ---- Recent Students Table ---- -->
+        <section class="section-card reveal" aria-label="Student records" style="margin-top:28px;">
+          <div class="section-header">
+            <div>
+              <div class="section-title">Recent Students</div>
+              <div class="section-subtitle">Latest enrolled student records</div>
+            </div>
+            <div class="table-controls">
+              <div class="table-search">
+                <span class="search-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </span>
+                <input type="text" id="studentSearch" placeholder="Search students…" aria-label="Search students" />
+              </div>
+              <select class="table-filter" id="deptFilter" aria-label="Filter by department">
+                <option value="">All Departments</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Data Science">Data Science</option>
+                <option value="Information Technology">Information Technology</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Management">Management</option>
+              </select>
+              <select class="table-filter" id="statusFilter" aria-label="Filter by status">
+                <option value="">All Status</option>
+                <option value="Excellent">Excellent</option>
+                <option value="Good">Good</option>
+                <option value="Needs Attention">Needs Attention</option>
+              </select>
+              <button class="btn btn-outline btn-sm" id="addStudentBtn">Add Student</button>
+            </div>
+          </div>
+          <div class="data-table-wrapper">
+            <table class="data-table" id="studentTable">
+              <thead>
+                <tr>
+                  <th data-sort="name">Student <span class="sort-icon">↕</span></th>
+                  <th data-sort="id">Register ID <span class="sort-icon">↕</span></th>
+                  <th data-sort="department">Department <span class="sort-icon">↕</span></th>
+                  <th data-sort="year">Year <span class="sort-icon">↕</span></th>
+                  <th data-sort="attendance">Attendance <span class="sort-icon">↕</span></th>
+                  <th data-sort="performance">Performance <span class="sort-icon">↕</span></th>
+                  <th data-sort="status">Status <span class="sort-icon">↕</span></th>
+                </tr>
+              </thead>
+              <tbody id="studentTableBody">
+                <!-- Rendered via JS -->
+              </tbody>
+            </table>
+          </div>
+          <div class="table-footer">
+            <div class="table-info" id="tableInfo">Showing 1-6 of 6 students</div>
+            <div class="table-pagination" id="tablePagination">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ---- Attendance Overview ---- -->
+        <section class="reveal" aria-label="Attendance overview" style="margin-top:28px;">
+          <div class="section-header" style="margin-bottom:20px;">
+            <div>
+              <div class="section-title">Attendance Overview</div>
+              <div class="section-subtitle">Distribution of student attendance levels</div>
+            </div>
+          </div>
+          <div class="attendance-grid" id="attendanceGrid">
+            <!-- Rendered via JS -->
+          </div>
+        </section>
+
+        <!-- ---- Two Column: Activity + Alerts ---- -->
+        <div class="grid-cols-2 reveal" style="margin-top:28px;">
+
+          <!-- Recent Activity -->
+          <div class="section-card">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Recent Activity</div>
+                <div class="section-subtitle">Latest system events</div>
+              </div>
+            </div>
+            <div class="timeline" id="activityTimeline">
+              <div class="timeline-item">
+                <div class="timeline-dot green"></div>
+                <div class="timeline-time">09:42 AM</div>
+                <div class="timeline-title">New student profile created</div>
+                <div class="timeline-desc">STU-2026-018</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot blue"></div>
+                <div class="timeline-time">09:18 AM</div>
+                <div class="timeline-title">Attendance report generated</div>
+                <div class="timeline-desc">Computer Science Department</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot purple"></div>
+                <div class="timeline-time">08:56 AM</div>
+                <div class="timeline-title">Performance data updated</div>
+                <div class="timeline-desc">Semester 4</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot amber"></div>
+                <div class="timeline-time">08:31 AM</div>
+                <div class="timeline-title">Student record modified</div>
+                <div class="timeline-desc">STU-2026-004</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Institutional Alerts -->
+          <div class="section-card">
+            <div class="section-header">
+              <div>
+                <div class="section-title">Institutional Alerts</div>
+                <div class="section-subtitle">Items requiring attention</div>
+              </div>
+            </div>
+            <div id="alertsList">
+              <div class="alert-item">
+                <div class="alert-icon warning">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </div>
+                <div class="alert-content">
+                  <div class="alert-title">Attendance below 75%</div>
+                  <div class="alert-desc">124 students require attention</div>
+                </div>
+              </div>
+              <div class="alert-item">
+                <div class="alert-icon danger">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                </div>
+                <div class="alert-content">
+                  <div class="alert-title">Performance review pending</div>
+                  <div class="alert-desc">48 students awaiting evaluation</div>
+                </div>
+              </div>
+              <div class="alert-item">
+                <div class="alert-icon info">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </div>
+                <div class="alert-content">
+                  <div class="alert-title">Monthly report ready</div>
+                  <div class="alert-desc">November 2026 academic report</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ---- Quick Actions ---- -->
+        <section class="reveal" aria-label="Quick actions" style="margin-top:28px;">
+          <div class="section-header" style="margin-bottom:20px;">
+            <div>
+              <div class="section-title">Quick Actions</div>
+              <div class="section-subtitle">Frequently used operations</div>
+            </div>
+          </div>
+          <div class="quick-actions-grid">
+            <button class="quick-action-btn" id="qaAddStudent">
+              <div class="quick-action-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+              </div>
+              <span class="quick-action-label">Add Student</span>
+            </button>
+            <button class="quick-action-btn" id="qaGenerateReport">
+              <div class="quick-action-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              </div>
+              <span class="quick-action-label">Generate Report</span>
+            </button>
+            <button class="quick-action-btn" id="qaViewAttendance">
+              <div class="quick-action-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <span class="quick-action-label">View Attendance</span>
+            </button>
+            <button class="quick-action-btn" id="qaExportData">
+              <div class="quick-action-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              </div>
+              <span class="quick-action-label">Export Data</span>
+            </button>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- ======== Footer ======== -->
+      <footer class="app-footer" role="contentinfo">
+        <div class="footer-brand">Student Information &amp; Analytics Portal</div>
+        <div class="footer-tagline">Academic Management Platform</div>
+        <div class="footer-copy">&copy; 2026 Institution Management System. All data shown is fictional/demo.</div>
+      </footer>
+
+    </div><!-- /.main-content -->
+  </div><!-- /.app -->
+
+  <!-- ======== Add Student Modal ======== -->
+  <div class="modal-overlay" id="addStudentModal" role="dialog" aria-modal="true" aria-label="Add student">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Add New Student</h2>
+        <button class="modal-close" id="closeAddStudent" aria-label="Close">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addStudentForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="studentFirstName">First Name</label>
+              <input class="form-input" type="text" id="studentFirstName" placeholder="Enter first name" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="studentLastName">Last Name</label>
+              <input class="form-input" type="text" id="studentLastName" placeholder="Enter last name" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="studentRegId">Register ID</label>
+            <input class="form-input" type="text" id="studentRegId" placeholder="e.g. STU-2026-007" required />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="studentDept">Department</label>
+              <select class="form-select" id="studentDept" required>
+                <option value="">Select department</option>
+                <option>Computer Science</option>
+                <option>Data Science</option>
+                <option>Information Technology</option>
+                <option>Mathematics</option>
+                <option>Engineering</option>
+                <option>Management</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="studentYear">Year</label>
+              <select class="form-select" id="studentYear" required>
+                <option value="">Select year</option>
+                <option>I</option>
+                <option>II</option>
+                <option>III</option>
+                <option>IV</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-cancel" id="cancelAddStudent">Cancel</button>
+        <button class="btn-modal-primary" id="submitAddStudent">Add Student</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== Generate Report Modal ======== -->
+  <div class="modal-overlay" id="reportModal" role="dialog" aria-modal="true" aria-label="Generate report">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Generate Report</h2>
+        <button class="modal-close" id="closeReport" aria-label="Close">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="reportForm">
+          <div class="form-group">
+            <label class="form-label" for="reportType">Report Type</label>
+            <select class="form-select" id="reportType" required>
+              <option value="">Select type</option>
+              <option>Attendance Report</option>
+              <option>Performance Report</option>
+              <option>Enrollment Report</option>
+              <option>Department Summary</option>
+              <option>Comprehensive Report</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="reportFrom">From</label>
+              <input class="form-input" type="date" id="reportFrom" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="reportTo">To</label>
+              <input class="form-input" type="date" id="reportTo" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="reportDept">Department</label>
+            <select class="form-select" id="reportDept">
+              <option value="">All Departments</option>
+              <option>Computer Science</option>
+              <option>Data Science</option>
+              <option>Information Technology</option>
+              <option>Mathematics</option>
+              <option>Engineering</option>
+              <option>Management</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="reportFormat">Export Format</label>
+            <select class="form-select" id="reportFormat" required>
+              <option value="">Select format</option>
+              <option>PDF</option>
+              <option>Excel (XLSX)</option>
+              <option>CSV</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-cancel" id="cancelReport">Cancel</button>
+        <button class="btn-modal-primary" id="submitReport">Generate</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
